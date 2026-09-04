@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Algebraic Postulates Practice | Beacon of Hope Christian School</title>
+<style>
+:root{--ink:#172033;--muted:#5f6b7a;--line:#d9dee7;--card:#fff;--bg:#f4f6f9;--accent:#243b6b;--good:#e8f6ed;--bad:#fdecec}
+*{box-sizing:border-box} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--accent);color:white;padding:28px 18px;text-align:center} header h1{margin:0 0 6px;font-size:28px} header p{margin:0;opacity:.92}
+main{max-width:900px;margin:24px auto;padding:0 16px 40px} .toolbar,.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+button{border:0;border-radius:8px;padding:10px 16px;font-weight:700;cursor:pointer;background:var(--accent);color:white} button.secondary{background:#eef1f6;color:var(--ink)}
+.qnum{font-weight:700;color:var(--accent)} .question{font-weight:700;margin:6px 0 12px;line-height:1.4}
+.option{display:block;border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0;cursor:pointer} .option:hover{background:#f7f8fb}
+.feedback{display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:14px} .correct{background:var(--good)} .incorrect{background:var(--bad)}
+#result{font-size:18px;font-weight:700} footer{text-align:center;color:var(--muted);padding:20px}
+@media(max-width:600px){header h1{font-size:22px}}
+</style>
+</head>
+<body>
+<header><h1>Beacon of Hope Christian School</h1><p>Geometry - Unit 1 | Review of Algebraic Postulates</p></header>
+<main>
+<div class="toolbar"><div><b>Practice Set:</b> 15 questions selected randomly from a 30-question bank</div><button class="secondary" onclick="buildQuiz()">New Practice Set</button></div>
+<form id="quiz"></form>
+<div class="toolbar"><button type="button" onclick="gradeQuiz()">Submit & Grade</button><div id="result">Score: -</div></div>
+</main>
+<footer>Geometry Practice - Algebraic Postulates</footer>
+<script>
+const bank=[{"q": "Which property is shown by 7 + 0 = 7?", "o": ["Additive identity", "Additive inverse", "Commutative addition", "Distributive"], "a": 0, "e": "Adding 0 leaves a real number unchanged."}, {"q": "Which property is shown by 8 + 5 = 5 + 8?", "o": ["Associative addition", "Commutative addition", "Closure", "Symmetric equality"], "a": 1, "e": "The order of the addends changes, but the sum does not."}, {"q": "Which property is shown by (2 + 3) + 4 = 2 + (3 + 4)?", "o": ["Associative addition", "Commutative addition", "Additive identity", "Transitive equality"], "a": 0, "e": "The grouping changes while the order stays the same."}, {"q": "Which property is shown by 11 + (-11) = 0?", "o": ["Additive identity", "Additive inverse", "Closure", "Comparison"], "a": 1, "e": "A number plus its opposite equals zero."}, {"q": "Which property is shown by 6 x 1 = 6?", "o": ["Multiplicative identity", "Multiplicative inverse", "Commutative multiplication", "Distributive"], "a": 0, "e": "Multiplying by 1 leaves the number unchanged."}, {"q": "Which property is shown by 4 x 9 = 9 x 4?", "o": ["Associative multiplication", "Commutative multiplication", "Closure", "Distributive"], "a": 1, "e": "The factors switch order without changing the product."}, {"q": "Which property is shown by (3 x 5) x 2 = 3 x (5 x 2)?", "o": ["Associative multiplication", "Commutative multiplication", "Multiplicative identity", "Reflexive equality"], "a": 0, "e": "Only the grouping of the factors changes."}, {"q": "Which property is shown by 5(2 + 3) = 10 + 15?", "o": ["Distributive", "Associative multiplication", "Additive inverse", "Symmetric equality"], "a": 0, "e": "The outside factor is multiplied by each addend."}, {"q": "Which property is shown by 9 = 9?", "o": ["Reflexive equality", "Symmetric equality", "Transitive equality", "Comparison"], "a": 0, "e": "Every real number is equal to itself."}, {"q": "If a = b, then b = a. Which property is this?", "o": ["Reflexive equality", "Symmetric equality", "Transitive equality", "Comparison"], "a": 1, "e": "Symmetry reverses the two sides of an equality."}, {"q": "If a = b and b = c, then a = c. Which property is this?", "o": ["Transitive equality", "Symmetric equality", "Reflexive equality", "Addition inequality"], "a": 0, "e": "Equality passes through the common middle value."}, {"q": "If 2 < 5 and 5 < 8, then 2 < 8. Which property is this?", "o": ["Comparison", "Transitive inequality", "Addition inequality", "Symmetric equality"], "a": 1, "e": "The transitive inequality property links the two inequalities."}, {"q": "If 4 > 2, then 4 + 7 > 2 + 7. Which property is this?", "o": ["Addition inequality", "Multiplication inequality", "Comparison", "Transitive equality"], "a": 0, "e": "Adding the same number to both sides preserves the inequality."}, {"q": "If 6 > 3 and both sides are multiplied by 2, which statement is true?", "o": ["12 > 6", "12 < 6", "8 > 5", "6 = 3"], "a": 0, "e": "Multiplication by a positive number preserves the inequality direction."}, {"q": "If 6 > 3 and both sides are multiplied by -2, which statement is true?", "o": ["-12 > -6", "-12 < -6", "12 < 6", "-6 = -12"], "a": 1, "e": "Multiplication by a negative number reverses the inequality direction."}, {"q": "Exactly one of a = b, a > b, or a < b is true. This is the:", "o": ["Comparison postulate", "Closure postulate", "Distributive postulate", "Associative postulate"], "a": 0, "e": "The comparison postulate gives the three mutually exclusive relationships."}, {"q": "What are algebraic axioms called in geometry?", "o": ["Definitions", "Postulates", "Proofs", "Theorems"], "a": 1, "e": "The source states that axioms in algebra are called postulates in geometry."}, {"q": "Which statement best describes closure under addition?", "o": ["The sum of two real numbers is a real number", "Changing order preserves the sum", "Adding zero changes nothing", "Opposites sum to zero"], "a": 0, "e": "Closure says the result remains in the real number system."}, {"q": "Which statement best describes closure under multiplication?", "o": ["The product of two real numbers is a real number", "The product is always positive", "Every product equals one", "Order must stay fixed"], "a": 0, "e": "Closure says multiplying real numbers gives another real number."}, {"q": "What is the multiplicative inverse of 5?", "o": ["-5", "0", "1/5", "5"], "a": 2, "e": "A nonzero number times its reciprocal equals 1."}, {"q": "Which equation illustrates a multiplicative inverse?", "o": ["4 + (-4) = 0", "4 x 1 = 4", "4 x (1/4) = 1", "4 + 0 = 4"], "a": 2, "e": "A number multiplied by its reciprocal equals 1."}, {"q": "Which equation illustrates additive identity?", "o": ["12 + 0 = 12", "12 + (-12) = 0", "12 x 1 = 12", "12 = 12"], "a": 0, "e": "Zero is the identity element for addition."}, {"q": "Which equation illustrates additive inverse?", "o": ["15 + 0 = 15", "15 + (-15) = 0", "15 x 1 = 15", "15 = 15"], "a": 1, "e": "Additive inverses have a sum of zero."}, {"q": "Which equation illustrates the distributive postulate?", "o": ["3(x + 4) = 3x + 12", "3 + 4 = 4 + 3", "3 x 1 = 3", "3 = 3"], "a": 0, "e": "The factor 3 is distributed to both terms inside the parentheses."}, {"q": "If 5 = x + 2, then x + 2 = 5. Which property is used?", "o": ["Symmetric equality", "Transitive equality", "Reflexive equality", "Comparison"], "a": 0, "e": "The two sides of the equality are reversed."}, {"q": "If x = y and y = 10, what follows by transitive equality?", "o": ["x = 10", "x > 10", "x < 10", "y = x + 10"], "a": 0, "e": "Because x equals y and y equals 10, x equals 10."}, {"q": "If a < b and b < 2, what follows?", "o": ["a < 2", "a > 2", "a = 2", "b < a"], "a": 0, "e": "Transitive inequality gives a < 2."}, {"q": "Simplify 2(x - 1) + (4 - 4x)/2.", "o": ["0", "2x", "-2", "4"], "a": 0, "e": "2x - 2 + 2 - 2x = 0, so the two expressions are additive inverses."}, {"q": "Why does the multiplicative inverse rule exclude zero?", "o": ["Zero is not real", "Zero has no reciprocal", "Zero is always negative", "Zero changes order"], "a": 1, "e": "A reciprocal of zero would require division by zero, which is undefined."}, {"q": "Which property would justify changing 3(x + 1) into 3x + 3?", "o": ["Distributive", "Commutative multiplication", "Additive identity", "Comparison"], "a": 0, "e": "The factor 3 is multiplied by both x and 1."}]; let current=[];
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function buildQuiz(){
+ current=shuffle(bank).slice(0,15); const f=document.getElementById('quiz'); f.innerHTML='';
+ current.forEach((x,i)=>{const c=document.createElement('div');c.className='card';
+ c.innerHTML=`<div class="qnum">Question ${i+1}</div><div class="question">${x.q}</div>`+
+ x.o.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${o}</label>`).join('')+
+ `<div id="fb${i}" class="feedback"></div>`;f.appendChild(c);});
+ document.getElementById('result').textContent='Score: -'; window.scrollTo({top:0,behavior:'smooth'});
+}
+function gradeQuiz(){
+ let score=0;
+ current.forEach((x,i)=>{const chosen=document.querySelector(`input[name="q${i}"]:checked`); const fb=document.getElementById('fb'+i);
+ if(chosen && Number(chosen.value)===x.a){score++;fb.className='feedback correct';fb.textContent='Correct. '+x.e;}
+ else{fb.className='feedback incorrect';fb.textContent='Review: '+x.e+' Correct answer: '+String.fromCharCode(65+x.a)+'. '+x.o[x.a];}
+ fb.style.display='block';});
+ document.getElementById('result').textContent=`Score: ${score} / ${current.length} (${Math.round(score/current.length*100)}%)`;
+}
+buildQuiz();
+</script>
+</body></html>
